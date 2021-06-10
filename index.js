@@ -1,11 +1,36 @@
 const express = require("express");
+const mongoose = require("mongoose");
+const bodyParser= require("body-parser");
 const app = express();
-const port = process.env.PORT || 3000;
+const port= process.env.PORT || 3000;
+// Fix the CORS Error 
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  next();
+});
+//Using bodyParser MiddleWare to parse the req to json
+app.use(bodyParser.json());
+//accessing the env variables
+ 
 
-app.get("/",(req,res)=>{
-    res.send("hello");
-})
+//Import  Routes 
+const postRoute= require("./routes/post");
+app.use(postRoute);
 
-app.listen(port,()=>{
-    console.log("app listening on post ", port )
-})
+//Routes in the server
+app.get("/", (req, res) => {
+  res.send("The project is running ....");
+});
+
+//connect to db
+mongoose.connect(
+   "mongodb+srv://saif:saif@123@cluster0.g6ple.mongodb.net/chatBot?retryWrites=true&w=majority",
+  { useNewUrlParser: true, useUnifiedTopology: true }, () => {
+  console.warn("Connected to DB.");
+});
+
+//Start the app at port 3000
+app.listen(port, () => {
+  console.log("App is running at port ..",port);
+});
+ 
