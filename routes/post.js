@@ -3,10 +3,17 @@ const router=express.Router();
 const Post= require("../models/Post");
 
 
-router.get('/:count', async (req,res)=>{
+router.get('/count', async (req,res)=>{
     try{
-        const Postdata= await Post.find().limit(Number(req.params.count));
-        res.send(Postdata);
+        let limit=Number(req.query.limit); 
+        console.log(limit);
+        if(!Number.isNaN(limit) && limit!==0) {
+            limit=0;
+            const Postdata= await Post.find().limit(limit);
+            res.send(Postdata);
+        } else { 
+        res.send("invalid Limit");
+        }
      }
     catch (err){
         res.json({message: err});
@@ -14,15 +21,8 @@ router.get('/:count', async (req,res)=>{
 });
 
 router
-.get('/', async (req,res)=>{ 
-    try{
-        const Postdata= await Post.find();
-        res.send(Postdata);
-     }
-    catch (err){
-        res.json({message: err});
-    }
-    
+.get('/', (req,res)=>{ 
+        res.send("please provide full path");
 })
 .post('/',(req,res)=>{
     const post=new Post({
