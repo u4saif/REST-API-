@@ -11,7 +11,7 @@ app.use((req, res, next) => {
 //Using bodyParser MiddleWare to parse the req to json
 app.use(bodyParser.json());
 //accessing the env variables
- 
+require("dotenv/config");
 
 //Import  Routes 
 const postRoute= require("./routes/post");
@@ -24,7 +24,7 @@ app.get("/", (req, res) => {
 
 //connect to db
 mongoose.connect(
-   "mongodb+srv://saif:saif@123@cluster0.g6ple.mongodb.net/chatBot?retryWrites=true&w=majority",
+   process.env.authKey,
   { useNewUrlParser: true, useUnifiedTopology: true }, () => {
   console.warn("Connected to DB.");
 });
