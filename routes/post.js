@@ -8,7 +8,6 @@ router.get('/count', async (req,res)=>{
         let limit=Number(req.query.limit); 
         console.log(limit);
         if(!Number.isNaN(limit) && limit!==0) {
-            limit=0;
             const Postdata= await Post.find().limit(limit);
             res.send(Postdata);
         } else { 
