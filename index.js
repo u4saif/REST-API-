@@ -3,13 +3,21 @@ const mongoose = require("mongoose");
 const bodyParser= require("body-parser");
 const app = express();
 const port= process.env.PORT || 3000;
+
+var cors = require('cors')
+
+//Fix for cors error on post
+app.use(cors())
+
 // Fix the CORS Error 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   next();
 });
+
 //Using bodyParser MiddleWare to parse the req to json
 app.use(bodyParser.json());
+
 //accessing the env variables
 require("dotenv/config");
 
