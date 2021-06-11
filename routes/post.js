@@ -3,7 +3,18 @@ const router=express.Router();
 const Post= require("../models/Post");
 
 
-router.get('/post', async (req,res)=>{ 
+router.get('/:count', async (req,res)=>{
+    try{
+        const Postdata= await Post.find().limit(Number(req.params.count));
+        res.send(Postdata);
+     }
+    catch (err){
+        res.json({message: err});
+    }
+});
+
+router
+.get('/', async (req,res)=>{ 
     try{
         const Postdata= await Post.find();
         res.send(Postdata);
@@ -12,9 +23,8 @@ router.get('/post', async (req,res)=>{
         res.json({message: err});
     }
     
-});
-
-router.post('/post',(req,res)=>{
+})
+.post('/',(req,res)=>{
     const post=new Post({
         title:req.body.title,
         discription:req.body.discription
@@ -24,5 +34,6 @@ router.post('/post',(req,res)=>{
     .catch(err=>{res.json({message:err});})
 
     console.log(req.body);
-})
+});
+
 module.exports = router;

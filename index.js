@@ -15,7 +15,7 @@ require("dotenv/config");
 
 //Import  Routes 
 const postRoute= require("./routes/post");
-app.use(postRoute);
+app.use('/post',postRoute);
 
 //Routes in the server
 app.get("/", (req, res) => {
