@@ -34,5 +34,11 @@ router
 
     console.log(req.body);
 });
-
+router.delete('/', (req,res)=>{
+      
+    Post.findOneAndRemove( {title:"test"})
+       .then(data=>{res.json(data);})
+       .catch(err=>{res.json({message:err});})
+   
+});
 module.exports = router;

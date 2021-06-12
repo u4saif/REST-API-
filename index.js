@@ -23,8 +23,9 @@ require("dotenv/config");
 
 //Import  Routes 
 const postRoute= require("./routes/post");
-app.use('/post',postRoute);
-
+const delteRoute= require("./routes/delete");
+app.use('/api/post',postRoute);
+app.use('/api/delete',delteRoute);
 //Routes in the server
 app.get("/", (req, res) => {
   res.send("The project is running ....");
